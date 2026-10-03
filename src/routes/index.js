@@ -20,7 +20,7 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
           'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
           'Accept-Language': 'en-US,en;q=0.5',
-          'Referer': 'https://toonstream.dad/',
+          'Referer': 'https://toonstream.us/',
           ...options.headers,
         },
       });
@@ -52,8 +52,8 @@ function parseAnimeCard($, element) {
   return {
     id: url?.split('/').filter(Boolean).pop(),
     title,
-    url: url ? `https://toonstream.dad${url}` : null,
-    image: image?.startsWith('http') ? image : image ? `https://toonstream.dad${image}` : null,
+    url: url ? `https://toonstream.us${url}` : null,
+    image: image?.startsWith('http') ? image : image ? `https://toonstream.us${image}` : null,
     type,
     episodes,
     sub,
@@ -84,7 +84,7 @@ app.get('/', (c) => {
 // Home endpoint - Get homepage data
 app.get('/home', async (c) => {
   try {
-    const response = await fetchWithRetry('https://toonstream.dad/home');
+    const response = await fetchWithRetry('https://toonstream.us/home');
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -109,7 +109,7 @@ app.get('/home', async (c) => {
         categories.push({
           name,
           slug: url.split('/').filter(Boolean).pop(),
-          url: `https://toonstream.dad${url}`,
+          url: `https://toonstream.us${url}`,
         });
       }
     });
@@ -119,7 +119,7 @@ app.get('/home', async (c) => {
       data: {
         suggestions,
         categories,
-        siteUrl: 'https://toonstream.dad',
+        siteUrl: 'https://toonstream.us',
       },
     });
   } catch (error) {
@@ -142,7 +142,7 @@ app.get('/search', async (c) => {
     }
 
     const page = c.req.query('page') || '1';
-    const searchUrl = `https://toonstream.dad/home/?s=${encodeURIComponent(query)}&page=${page}`;
+    const searchUrl = `https://toonstream.us/home/?s=${encodeURIComponent(query)}&page=${page}`;
     
     const response = await fetchWithRetry(searchUrl);
     const html = await response.text();
@@ -172,7 +172,7 @@ app.get('/search', async (c) => {
 // Trending endpoint
 app.get('/trending', async (c) => {
   try {
-    const response = await fetchWithRetry('https://toonstream.dad/home');
+    const response = await fetchWithRetry('https://toonstream.us/home');
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -198,7 +198,7 @@ app.get('/trending', async (c) => {
 app.get('/recent', async (c) => {
   try {
     const page = c.req.query('page') || '1';
-    const response = await fetchWithRetry(`https://toonstream.dad/home?page=${page}`);
+    const response = await fetchWithRetry(`https://toonstream.us/home?page=${page}`);
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -224,7 +224,7 @@ app.get('/recent', async (c) => {
 // Categories endpoint
 app.get('/categories', async (c) => {
   try {
-    const response = await fetchWithRetry('https://toonstream.dad/home');
+    const response = await fetchWithRetry('https://toonstream.us/home');
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -236,7 +236,7 @@ app.get('/categories', async (c) => {
         categories.push({
           name,
           slug: url.split('/').filter(Boolean).pop(),
-          url: `https://toonstream.dad${url}`,
+          url: `https://toonstream.us${url}`,
         });
       }
     });
@@ -259,7 +259,7 @@ app.get('/category/:name', async (c) => {
     const name = c.req.param('name');
     const page = c.req.query('page') || '1';
     
-    const response = await fetchWithRetry(`https://toonstream.dad/category/${name}/?page=${page}`);
+    const response = await fetchWithRetry(`https://toonstream.us/category/${name}/?page=${page}`);
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -287,7 +287,7 @@ app.get('/category/:name', async (c) => {
 app.get('/anime/:id', async (c) => {
   try {
     const id = c.req.param('id');
-    const response = await fetchWithRetry(`https://toonstream.dad/anime/${id}`);
+    const response = await fetchWithRetry(`https://toonstream.us/anime/${id}`);
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -313,7 +313,7 @@ app.get('/anime/:id', async (c) => {
           number: epNum || (i + 1).toString(),
           title: epTitle,
           id: epUrl.split('/').filter(Boolean).pop(),
-          url: `https://toonstream.dad${epUrl}`,
+          url: `https://toonstream.us${epUrl}`,
         });
       }
     });
@@ -323,7 +323,7 @@ app.get('/anime/:id', async (c) => {
       data: {
         id,
         title,
-        image: image?.startsWith('http') ? image : image ? `https://toonstream.dad${image}` : null,
+        image: image?.startsWith('http') ? image : image ? `https://toonstream.us${image}` : null,
         description,
         type,
         status,
@@ -344,7 +344,7 @@ app.get('/anime/:id', async (c) => {
 app.get('/episode/:id', async (c) => {
   try {
     const id = c.req.param('id');
-    const response = await fetchWithRetry(`https://toonstream.dad/watch/${id}`);
+    const response = await fetchWithRetry(`https://toonstream.us/watch/${id}`);
     const html = await response.text();
     const $ = cheerio.load(html);
 

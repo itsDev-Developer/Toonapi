@@ -104,7 +104,7 @@ const extractAnimeCard = ($el, $) => {
         let poster = $el.find('img').first().attr('src') || 
                      $el.find('img').first().attr('data-src') || '';
         if (poster && !poster.startsWith('http')) {
-            poster = poster.startsWith('//') ? `https:${poster}` : `https://toonstream.one${poster}`;
+            poster = poster.startsWith('//') ? `https:${poster}` : `https://toonstream.us${poster}`;
         }
         
         const ratingEl = $el.find('.rating, .vote, .tmdb');
@@ -174,7 +174,7 @@ export const scrapeAnimeDetails = async (id, seasonsQuery = null) => {
         const posterEl = $('.poster img, .thumbnail img, article img, [class*="poster"] img').first();
         let poster = posterEl.attr('src') || posterEl.attr('data-src') || posterEl.attr('data-lazy-src') || '';
         if (poster && !poster.startsWith('http')) {
-            poster = poster.startsWith('//') ? `https:${poster}` : `https://toonstream.one${poster}`;
+            poster = poster.startsWith('//') ? `https:${poster}` : `https://toonstream.us${poster}`;
         }
 
         // Extract description/synopsis

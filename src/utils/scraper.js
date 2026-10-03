@@ -351,7 +351,7 @@ export const extractPlayerUrl = ($) => {
     if (src) {
         src = decodeHTMLEntities(src);
         if (src.startsWith('//')) src = `https:${src}`;
-        else if (src.startsWith('/')) src = `https://toonstream.one${src}`;
+        else if (src.startsWith('/')) src = `https://toonstream.us${src}`;
         else if (src.startsWith('http://')) src = src.replace('http://', 'https://');
     }
 

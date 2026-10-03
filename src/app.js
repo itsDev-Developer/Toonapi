@@ -21,12 +21,19 @@ const app = new Hono();
 app.use('*', logger());
 app.use('*', prettyJSON());
 app.use('*', cors({
-    origin: '*',
+    origin: 'https://toonstream.us',
     credentials: true,
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     exposeHeaders: ['Content-Length', 'X-Request-Id']
 }));
+app.use('*', async (c, next) => {
+    c.header('X-Content-Type-Options', 'nosniff');
+    c.header('X-Frame-Options', 'DENY');
+    c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    c.header('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+    await next();
+});
 
 // Rate limiting removed for Cloudflare Workers compatibility
 // Cloudflare provides edge rate limiting
@@ -91,11 +98,11 @@ app.get('/api/openapi.json', (c) => {
         info: {
             title: 'ToonStream API',
             version: '1.0.0',
-            description: 'A comprehensive RESTful API for scraping anime content from toonstream.one'
+            description: 'A comprehensive RESTful API for scraping anime content from toonstream.us'
         },
         servers: [
             {
-                url: 'https://toonstream-api.ry4n.qzz.io',
+                url: 'https://toonstream-api.toonstream.us',
                 description: 'Production server'
             },
             {

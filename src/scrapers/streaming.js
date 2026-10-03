@@ -107,7 +107,7 @@ async function scrapeWithFetch(episodeId) {
     $('iframe, [class*="player"] iframe').each((_, el) => {
         const src = $(el).attr('data-src') || $(el).attr('src') || $(el).attr('data-lazy-src');
         if (src) {
-            let fullSrc = src.startsWith('http') ? src : (src.startsWith('//') ? `https:${src}` : `https://toonstream.one${src}`);
+            let fullSrc = src.startsWith('http') ? src : (src.startsWith('//') ? `https:${src}` : `https://toonstream.us${src}`);
             // Decode HTML entities
             fullSrc = decodeHTMLEntities(fullSrc);
             sources.push({
@@ -125,7 +125,7 @@ async function scrapeWithFetch(episodeId) {
         const quality = $(el).attr('label') || $(el).attr('data-quality') || 'default';
 
         if (src) {
-            const fullSrc = src.startsWith('http') ? src : `https://toonstream.one${src}`;
+            const fullSrc = src.startsWith('http') ? src : `https://toonstream.us${src}`;
             sources.push({
                 type: 'video',
                 url: fullSrc,
@@ -145,7 +145,7 @@ async function scrapeWithFetch(episodeId) {
 
         if (href && href.length > 10) {
             downloads.push({
-                url: href.startsWith('http') ? href : `https://toonstream.one${href}`,
+                url: href.startsWith('http') ? href : `https://toonstream.us${href}`,
                 quality,
                 language
             });

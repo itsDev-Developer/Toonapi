@@ -7,7 +7,7 @@
 [![Hono](https://img.shields.io/badge/Hono-4.0+-orange?logo=hono)](https://hono.dev)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?logo=node.js)](https://nodejs.org)
 
-**A comprehensive RESTful API for scraping anime content from toonstream.one**
+**A comprehensive RESTful API for scraping anime content from toonstream.us**
 
 **Optimized for Cloudflare Workers**
 
@@ -95,7 +95,7 @@ Edit `config.js`:
 ```javascript
 export default {
   port: 3030,
-  baseUrl: 'https://toonstream.one',
+  baseUrl: 'https://toonstream.us',
   cacheTTL: 3600,
   rateLimit: {
     windowMs: 60000,

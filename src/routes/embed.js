@@ -42,7 +42,7 @@ embed.get('/api/source/:id', async (c) => {
 
                     try {
                         // Direct iframe - use as is
-                        if (!sourceUrl.includes('trembed') && !sourceUrl.includes('toonstream.one/home')) {
+                        if (!sourceUrl.includes('trembed') && !sourceUrl.includes('toonstream.us/home')) {
                             return {
                                 server: serverName,
                                 url: sourceUrl,
@@ -55,7 +55,7 @@ embed.get('/api/source/:id', async (c) => {
                         const playerResponse = await axios.get(sourceUrl, {
                             headers: {
                                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                                'Referer': `https://toonstream.one/episode/${id}/`,
+                                'Referer': `https://toonstream.us/episode/${id}/`,
                             },
                             timeout: 5000
                         });
@@ -71,7 +71,7 @@ embed.get('/api/source/:id', async (c) => {
                         if (realIframeSrc) {
                             realIframeSrc = decodeHTMLEntities(realIframeSrc);
                             if (realIframeSrc.startsWith('//')) realIframeSrc = `https:${realIframeSrc}`;
-                            else if (realIframeSrc.startsWith('/')) realIframeSrc = `https://toonstream.one${realIframeSrc}`;
+                            else if (realIframeSrc.startsWith('/')) realIframeSrc = `https://toonstream.us${realIframeSrc}`;
                             else if (realIframeSrc.startsWith('http://')) realIframeSrc = realIframeSrc.replace('http://', 'https://');
 
                             // Skip vidstreaming.xyz
@@ -207,7 +207,7 @@ embed.get('/embed/:id', async (c) => {
                 const fetchSource = async (source) => {
                     const sourceUrl = source.url;
                     // Direct iframe - resolve immediately
-                    if (!sourceUrl.includes('trembed') && !sourceUrl.includes('toonstream.one/home')) {
+                    if (!sourceUrl.includes('trembed') && !sourceUrl.includes('toonstream.us/home')) {
                         return sourceUrl;
                     }
 
@@ -217,7 +217,7 @@ embed.get('/embed/:id', async (c) => {
                         const playerResponse = await axios.get(sourceUrl, {
                             headers: {
                                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                                'Referer': `https://toonstream.one/episode/${id}/`,
+                                'Referer': `https://toonstream.us/episode/${id}/`,
                             },
                             timeout: 4000
                         });
@@ -233,7 +233,7 @@ embed.get('/embed/:id', async (c) => {
                         if (realIframeSrc) {
                             realIframeSrc = decodeHTMLEntities(realIframeSrc);
                             if (realIframeSrc.startsWith('//')) realIframeSrc = `https:${realIframeSrc}`;
-                            else if (realIframeSrc.startsWith('/')) realIframeSrc = `https://toonstream.one${realIframeSrc}`;
+                            else if (realIframeSrc.startsWith('/')) realIframeSrc = `https://toonstream.us${realIframeSrc}`;
                             else if (realIframeSrc.startsWith('http://')) realIframeSrc = realIframeSrc.replace('http://', 'https://');
 
                             // Skip vidstreaming.xyz
@@ -368,7 +368,7 @@ function generateCleanPlayer(iframeSrc) {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+                <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; frame-src https:; frame-ancestors 'none';">
                 <title>ToonStream Player</title>
                 <style>
                     body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #000; overflow: hidden; }

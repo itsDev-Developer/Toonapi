@@ -2,7 +2,7 @@ name = "toonstream-api"
 main = "src/worker.js"
 compatibility_date = "2024-11-29"
 compatibility_flags = ["nodejs_compat"]
-account_id = "1a103a076478a565238354f2f779e25c"
+account_id = "dba2920083d3df603902851916d3075b"
 
 
 [observability]
